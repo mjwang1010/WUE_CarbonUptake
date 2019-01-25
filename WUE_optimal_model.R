@@ -84,7 +84,12 @@ Model_iWUE_fun1 <- function(Tk, D, Ca, Press) {
   ### A full model
   xi <- (beta*(K+gamma_star)/(1.6*reta))^0.5
   ###
-  iWUE <- Ca / 1.6 / (xi / D^0.5 + 1)
+  # an approximation
+  # iWUE <- Ca / 1.6 / (xi / D^0.5 + 1)
+  # a complete model
+  Capa <- Ca*Press*10^(-6) # Pa
+  chi <- gamma_star/Capa + (1-gamma_star/Capa) * xi/(xi+D^0.5)
+  iWUE <- Ca / 1.6 * (1-chi)
   return(iWUE)
 }
 
